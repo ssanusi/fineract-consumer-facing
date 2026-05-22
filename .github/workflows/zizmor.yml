@@ -21,11 +21,22 @@ name: GitHub Actions Security Analysis with zizmor 🌈
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
     branches: ["**"]
+    paths:
+      - ".github/workflows/**"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/**"
 
-permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
 
 jobs:
   zizmor:
@@ -47,3 +58,4 @@ jobs:
           advanced-security: false
           min-severity: medium
           min-confidence: medium
+          token: ${{ github.token }}

@@ -20,8 +20,16 @@ name: Apache RAT Scan
 on:
   push:
     branches: [ "**" ]
+    paths-ignore:
+      - "**/*.md"
+      - ".rat-excludes"
+      - "LICENSE"
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - "**/*.md"
+      - ".rat-excludes"
+      - "LICENSE"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
