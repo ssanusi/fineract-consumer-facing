@@ -35,7 +35,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up JDK
-        uses: actions/setup-java@3a4f6111f18e3a01ad256ef2858021cbf3a195ca # v4.5.0
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
         with:
           java-version: '17'
           distribution: 'temurin'
