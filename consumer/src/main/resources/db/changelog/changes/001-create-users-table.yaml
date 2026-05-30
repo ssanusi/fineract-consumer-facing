@@ -20,7 +20,7 @@
 databaseChangeLog:
   - changeSet:
       id: 001-create-users-table
-      author: edk12564
+      author: fineract-consumer-facing
       changes:
         - createTable:
             tableName: users
