@@ -12,23 +12,23 @@
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.user.query.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import java.util.Optional;
+import java.util.UUID;
+import org.apache.fineract.consumer.user.command.domain.User;
+import org.apache.fineract.consumer.user.query.data.UserQueryData;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+public interface UserQueryRepository extends Repository<User, Long> {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
-
+    @Query("SELECT new org.apache.fineract.consumer.user.query.data.UserQueryData(u.id, u.externalId, u.email, u.status) "
+            + "FROM User u WHERE u.externalId = :externalId")
+    Optional<UserQueryData> findByExternalId(UUID externalId);
 }

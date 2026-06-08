@@ -12,23 +12,22 @@
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.infrastructure.fineractclient.clients;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import java.util.List;
+import org.apache.fineract.consumer.infrastructure.fineractclient.data.FineractClientIdentifierData;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+@FeignClient(name = "fineract-client-identifiers", url = "${fineract.client.base-url}")
+public interface FineractClientIdentifiersClient {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
-
+    @GetMapping("/clients/{clientId}/identifiers")
+    List<FineractClientIdentifierData> getIdentifiers(@PathVariable("clientId") Long clientId);
 }

@@ -12,23 +12,26 @@
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.infrastructure.fineractclient.interceptors;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+import lombok.RequiredArgsConstructor;
+import org.apache.fineract.consumer.infrastructure.fineractclient.configs.FineractClientProperties;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+@RequiredArgsConstructor
+public class FineractTenantHeaderInterceptor implements RequestInterceptor {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
+    private static final String TENANT_HEADER = "Fineract-Platform-TenantId";
+    private final FineractClientProperties properties;
 
+    @Override
+    public void apply(RequestTemplate template) {
+        template.header(TENANT_HEADER, properties.getTenantId());
+    }
 }
