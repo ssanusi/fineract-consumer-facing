@@ -17,18 +17,18 @@
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.cucumber.clients;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import feign.Param;
+import feign.RequestLine;
+import java.util.List;
+import java.util.Map;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+public interface FineractCodeLookupClient {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
+    @RequestLine("GET /codes")
+    List<Map<String, Object>> listCodes();
 
+    @RequestLine("GET /codes/{codeId}/codevalues")
+    List<Map<String, Object>> listCodeValues(@Param("codeId") long codeId);
 }

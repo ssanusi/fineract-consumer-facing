@@ -12,23 +12,20 @@
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.otp.command.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import java.util.UUID;
+import org.apache.fineract.consumer.otp.command.data.OtpDeliveryMethod;
+import org.apache.fineract.consumer.otp.command.data.PendingOtp;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+public interface OtpCommandService {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
+    PendingOtp createOtp(UUID externalId, OtpDeliveryMethod method);
 
+    void validateOtp(UUID externalId, String token);
 }

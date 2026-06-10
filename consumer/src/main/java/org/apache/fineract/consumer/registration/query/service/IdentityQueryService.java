@@ -12,23 +12,17 @@
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
+ * KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.registration.query.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.apache.fineract.consumer.registration.query.data.IdentityVerificationQuery;
+import org.apache.fineract.consumer.registration.query.data.IdentityVerificationQueryData;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+public interface IdentityQueryService {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
-
+    IdentityVerificationQueryData verifyIdentity(IdentityVerificationQuery query);
 }

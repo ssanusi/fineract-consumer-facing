@@ -15,13 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-# Apache Software Foundation
-# 
 databaseChangeLog:
   - changeSet:
       id: 001-create-users-table
       author: fineract-consumer-facing
       changes:
+        - sql:
+            sql: "CREATE TYPE user_status AS ENUM ('PENDING_OTP', 'PENDING_2FA', 'BOUND')"
         - createTable:
             tableName: users
             columns:
@@ -33,7 +33,48 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: external_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
                   name: client_id
                   type: BIGINT
                   constraints:
                     nullable: false
+                    unique: true
+              - column:
+                  name: status
+                  type: user_status
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bound_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: device_fingerprint
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: users
+        - sql:
+            sql: "DROP TYPE user_status"

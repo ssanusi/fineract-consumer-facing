@@ -17,18 +17,15 @@
  * under the License.
  */
 
-package org.apache.fineract.consumer;
+package org.apache.fineract.consumer.cucumber.clients;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import feign.Headers;
+import feign.RequestLine;
+import java.util.Map;
 
-@SpringBootApplication
-@EnableFeignClients(basePackages = "org.apache.fineract.consumer")
-public class ConsumerApplication {
+public interface FineractClientSeedClient {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConsumerApplication.class, args);
-	}
-
+    @RequestLine("POST /clients")
+    @Headers("Content-Type: application/json")
+    Map<String, Object> createClient(Map<String, Object> body);
 }
