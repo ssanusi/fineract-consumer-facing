@@ -30,6 +30,7 @@ import org.apache.fineract.consumer.registration.command.data.SubmitRegistration
 import org.apache.fineract.consumer.registration.command.data.VerifyOtpCommand;
 import org.apache.fineract.consumer.registration.command.data.VerifyOtpCommandData;
 import org.apache.fineract.consumer.registration.command.data.VerifyOtpCommandRequest;
+import org.apache.fineract.consumer.infrastructure.web.ConsumerHeaders;
 import org.apache.fineract.consumer.registration.command.service.RegistrationCommandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +50,11 @@ public class RegistrationCommandController {
     @PostMapping("/submit")
     public ResponseEntity<SubmitRegistrationCommandData> submit(
             @Valid @RequestBody SubmitRegistrationCommandRequest request,
-            @RequestHeader("X-Device-Fingerprint") String deviceFingerprint) {
+            @RequestHeader(ConsumerHeaders.DEVICE_FINGERPRINT) String deviceFingerprint) {
         SubmitRegistrationCommand command = SubmitRegistrationCommand.builder()
                 .fineractClientId(request.getFineractClientId())
                 .email(request.getEmail())
+                .password(request.getPassword())
                 .documentTypeName(request.getDocumentTypeName())
                 .documentKey(request.getDocumentKey())
                 .deviceFingerprint(deviceFingerprint)

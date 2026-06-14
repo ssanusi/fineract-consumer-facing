@@ -21,7 +21,7 @@ databaseChangeLog:
       author: fineract-consumer-facing
       changes:
         - sql:
-            sql: "CREATE TYPE user_status AS ENUM ('PENDING_OTP', 'PENDING_2FA', 'BOUND')"
+            sql: "CREATE TYPE user_status AS ENUM ('PENDING_OTP', 'BOUND')"
         - createTable:
             tableName: users
             columns:
@@ -44,6 +44,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: password_hash
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
               - column:
                   name: client_id
                   type: BIGINT
