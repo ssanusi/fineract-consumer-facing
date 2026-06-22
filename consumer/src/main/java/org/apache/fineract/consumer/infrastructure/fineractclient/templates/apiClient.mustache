@@ -1,0 +1,8 @@
+package {{package}};
+
+import org.springframework.cloud.openfeign.FeignClient;
+import {{configPackage}}.ClientConfiguration;
+
+@FeignClient(name="${{openbrace}}{{classVarName}}.name:{{classVarName}}{{closebrace}}", url="${fineract.client.base-url}", configuration = ClientConfiguration.class)
+public interface {{classname}}Client extends {{classname}} {
+}
