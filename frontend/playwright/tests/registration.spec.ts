@@ -62,7 +62,7 @@ test('registration walks identity -> OTP -> success and never persists the OTP o
   await otpField.fill(OTP_CODE);
   await page.getByRole('button', { name: 'Verify' }).click();
 
-  await expect(page.getByText(/account is bound/i)).toBeVisible();
+  await expect(page.getByText(/account is created/i)).toBeVisible();
 
   const storage = await page.evaluate(() =>
     JSON.stringify({ local: { ...localStorage }, session: { ...sessionStorage } }),
